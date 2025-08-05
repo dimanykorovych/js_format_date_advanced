@@ -15,22 +15,25 @@ function formatDate(date, fromFormat, toFormat) {
 
   const fromSeparator = fromFormat[fromFormat.length - 1];
   const toSeparator = toFormat[toFormat.length - 1];
+  const fromField = fromFormat.slice(0, -1);
+  const toField = toFormat.slice(0, -1);
+
   const dateArr = date.split(fromSeparator);
 
-  for (let i = 0; i < dateArr.length; i++) {
-    if (fromFormat[i] === 'DD') {
+  for (let i = 0; i < fromField.length; i++) {
+    if (fromField[i] === 'DD') {
       day = dateArr[i];
     }
 
-    if (fromFormat[i] === 'MM') {
+    if (fromField[i] === 'MM') {
       month = dateArr[i];
     }
 
-    if (fromFormat[i] === 'YYYY') {
+    if (fromField[i] === 'YYYY') {
       year = dateArr[i];
     }
 
-    if (fromFormat[i] === 'YY' && toFormat.includes('YYYY')) {
+    if (fromField[i] === 'YY' && toField.includes('YYYY')) {
       if (dateArr[i] < 30) {
         year = `20${dateArr[i]}`;
       } else {
@@ -39,20 +42,20 @@ function formatDate(date, fromFormat, toFormat) {
     }
   }
 
-  for (let i = 0; i < dateArr.length; i++) {
-    if (toFormat[i] === 'DD') {
+  for (let i = 0; i < toField.length; i++) {
+    if (toField[i] === 'DD') {
       result[i] = day;
     }
 
-    if (toFormat[i] === 'MM') {
+    if (toField[i] === 'MM') {
       result[i] = month;
     }
 
-    if (toFormat[i] === 'YYYY') {
+    if (toField[i] === 'YYYY') {
       result[i] = year;
     }
 
-    if (toFormat[i] === 'YY') {
+    if (toField[i] === 'YY') {
       result[i] = year.slice(-2);
     }
   }
